@@ -6,7 +6,7 @@ FreeBSD with ZFS installation on Vultr VPS
 
 \(This article is part of the Chinese version [在Vultr的VPS上安装支持ZFS的FreeBSD及SMTP问题的解决](http://blog.csdn.net/raptor/article/details/39854397)\)
 
-Vultr VPS is good cause thier VPS can be installed FreeBSD. The better thing is it can be installed OS from custom ISO.
+[Vultr](http://www.vultr.com/?ref=6811567) VPS is good cause thier VPS can be installed FreeBSD. The better thing is it can be installed OS from custom ISO.
 
 I had tried the official FreeBSD 10/x64 image, but there is not ZFS. It had been fail when I tried to resize partition to create a ZPOOL. Fortunately,however, we can also install a FreeBSD from custom ISO.
 
