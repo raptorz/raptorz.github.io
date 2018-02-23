@@ -10,7 +10,7 @@ FreeBSD with ZFS installation on Vultr VPS
 
 I had tried the official FreeBSD 10/x64 image, but there is not ZFS. It had been fail when I tried to resize partition to create a ZPOOL. Fortunately,however, we can also install a FreeBSD from custom ISO.
 
-###Installation
+### Installation
 
 At first, Let's login the Vultr customer's panel. At the bottom of tab page _My Servers_, you will find the _My ISOs_ link, click into the page _Upload Iso_, fill in the _Remote URL_ box with the ISO file URL, eg. _FreeBSD-10.0-RELEASE-amdx64-bootonly_ is [ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/amd64/ISO-IMAGES/10.0/FreeBSD-10.0-RELEASE-amd64-bootonly.iso](ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/amd64/ISO-IMAGES/10.0/FreeBSD-10.0-RELEASE-amd64-bootonly.iso), and press the _Upload_ button. The ISO file will be transfered from _FreeBSD.org_.
 
@@ -31,23 +31,29 @@ After done, shutdown this VPS. Open the _Custom ISO_ tab in the page _Server Inf
 
 Now, you can log into the system via console or SSH and use it.
 
-###ZFS
+### ZFS
 
 You must create a zpool in zfs partition at first:
 
-        zpool create ztank /dev/gpt/tank
+```
+zpool create ztank /dev/gpt/tank
+```
 
 _ztank_ is the zpool name, _tank_ is the partition label name.
 
 and create zfs like this:
 
-        zfs create -o mountpoint=/home/myusername/myhome ztank/myhome
- 
+```
+zfs create -o mountpoint=/home/myusername/myhome ztank/myhome
+```
+
 or create a zfs for ports:
 
-        mv /usr/ports /usr/ports_old
-        zfs create -o mountpoint=/usr/ports -o compression=on ztank/ports
-        mv /usr/ports_old/* /usr/ports
-        rmdir /usr/ports_old
+```
+mv /usr/ports /usr/ports_old
+zfs create -o mountpoint=/usr/ports -o compression=on ztank/ports
+mv /usr/ports_old/* /usr/ports
+rmdir /usr/ports_old
+```
 
 Enjoy it.
