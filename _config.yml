@@ -15,16 +15,13 @@ text_color_theme: default #eg: default | dark | forest | ocean | chocolate | ora
 ## Base settings ##
 # url:  #the base hostname & protocol for your site e.g. https://www.someone.com
 baseurl: /
-title: Someone's blog
+title: raptor's chinglish blog
 description: > #this means to ignore newlines until "nav_lists:"
-  Someone's Blog
+  Raptor's Chinglish Blog
 
 nav_lists:
   - titles:
       en: About
-      zh: 关于
-      zh-Hans: 关于
-      zh-Hant: 關於
     url: /about.html
 
 # paths:
@@ -43,11 +40,11 @@ timezone: Asia/Shanghai #see https://en.wikipedia.org/wiki/List_of_tz_database_t
 
 ## Author & social ##
 author:
-  name: Someone
-  # email:  #your Email address e.g. someone@site.com
+  name: raptor
+  email: raptor.zh@gmail.com
   # facebook:  #your Facebook username
-  # twitter:  #your Twitter username
-  # github:  #your GitHub username
+  twitter: raptorz
+  github: raptorz
   # googleplus:  #your Google+ username
   # weibo:  #your Weibo username
   # douban:  #your Douban username

@@ -8,10 +8,10 @@ titles:
 key: page-about
 ---
 
-Just say something about yourself. :+1:
+Just say nothing about myself. :+1:
 
-{% highlight javascript %}
-  (() => console.log('hello, world!'))();
+{% highlight %}
+Python dafa is awesome.
 {% endhighlight %}
 
-## title
+## Hahaha
