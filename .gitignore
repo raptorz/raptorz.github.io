@@ -1,4 +1,6 @@
 .hg
 .hgignore
-_site
+
 *.swp
+
+_site/
