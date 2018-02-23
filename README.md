@@ -1,2 +1,2 @@
 # raptorz.github.io
-My Chinglish blog
+My Chinglish blog: [raptorz.github.io](https://raptorz.github.io)
