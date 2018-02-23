@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 ---
 FreeBSD with ZFS installation on Vultr VPS
 ===========

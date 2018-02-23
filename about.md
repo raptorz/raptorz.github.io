@@ -10,8 +10,8 @@ key: page-about
 
 Just say nothing about myself. :+1:
 
-{% highlight %}
-Python dafa is awesome.
+{% highlight python %}
+print("Python dafa is awesome.")
 {% endhighlight %}
 
 ## Hahaha
