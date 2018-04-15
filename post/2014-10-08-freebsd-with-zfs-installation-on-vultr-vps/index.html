@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+<head>
+    <base href="/">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="author" content="">
+
+<meta name="description" content="">
+
+<title>FreeBSD with ZFS installation on Vultr VPS</title>
+<meta name="generator" content="Hugo 0.38.2" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/pojoaque.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+<link  href="http://raptorz.github.io//css/theme.min.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+<div class="page-container container-fluid">
+<div class="col-md-3 menu">
+    <nav class="col-md-3">
+    <h3 class="home-link"><a href="http://raptorz.github.io/">Root</a></h3>
+    <div id="last-posts" class="open">
+        <h3 data-open="last-posts">raptor&#39;s chinglish blog - Most recent posts</h3>
+        <ul>
+            
+            <li><a href="http://raptorz.github.io/post/2014-10-08-freebsd-with-zfs-installation-on-vultr-vps/">FreeBSD with ZFS installation on Vultr VPS</a></li>
+            
+            <li><a href="http://raptorz.github.io/post/2014-09-30-hello-world/">Hello world</a></li>
+            
+        </ul>
+    </div>
+
+    
+
+    
+</nav>
+
+</div>
+<div class="col-md-9 content">
+
+<h1>FreeBSD with ZFS installation on Vultr VPS</h1>
+<h4>Published 10-08-2014 11:55:59</h4>
+
+<a href="https://twitter.com/share" class="twitter-share-button" data-via="kendo5731"></a>
+<script>!function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+    if (!d.getElementById(id)) {
+        js = d.createElement(s);
+        js.id = id;
+        js.src = p + '://platform.twitter.com/widgets.js';
+        fjs.parentNode.insertBefore(js, fjs);
+    }
+}(document, 'script', 'twitter-wjs');</script>
+
+<div class="fb-share-button" data-href="http://raptorz.github.io/post/2014-10-08-freebsd-with-zfs-installation-on-vultr-vps/" data-layout="button"></div>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en-US/sdk.js#xfbml=1&version=v2.5";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<article>
+    
+
+<p>(This article is part of the Chinese version <a href="http://blog.csdn.net/raptor/article/details/39854397">在Vultr的VPS上安装支持ZFS的FreeBSD及SMTP问题的解决</a>)</p>
+
+<p><a href="http://www.vultr.com/?ref=6811567">Vultr</a> VPS is good cause thier VPS can be installed FreeBSD. The better thing is it can be installed OS from custom ISO.</p>
+
+<p>I had tried the official FreeBSD 10/x64 image, but there is not ZFS. It had been fail when I tried to resize partition to create a ZPOOL. Fortunately,however, we can also install a FreeBSD from custom ISO.</p>
+
+<h3 id="installation">Installation</h3>
+
+<p>At first, Let&rsquo;s login the Vultr customer&rsquo;s panel. At the bottom of tab page <em>My Servers</em>, you will find the <em>My ISOs</em> link, click into the page <em>Upload Iso</em>, fill in the <em>Remote URL</em> box with the ISO file URL, eg. <em>FreeBSD-10.0-RELEASE-amdx64-bootonly</em> is <a href="ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/amd64/ISO-IMAGES/10.0/FreeBSD-10.0-RELEASE-amd64-bootonly.iso">ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/amd64/ISO-IMAGES/10.0/FreeBSD-10.0-RELEASE-amd64-bootonly.iso</a>, and press the <em>Upload</em> button. The ISO file will be transfered from <em>FreeBSD.org</em>.</p>
+
+<p>Transfer file between servers is fast. When it was done, you can switch to the page <em>Deploy</em> to create a new VPS. Select the appropriate <em>Server Type</em>, <em>Location</em>, Server Size_ according to your needs. Large memory is required for ZFS, 4G is recommended, bigger is better.</p>
+
+<p>Select <em>Custom</em> in <em>Operating System</em> option and choose <em>Virtual ISO</em> is just uploaded ISO file <em>ISO</em> <em>FreeBSD-10.0-RELEASE-amd64-bootonly.iso</em> .</p>
+
+<p>Then press <em>Place Order</em> button. You will get a new VPS and it will boot from this ISO now. Switch to the page <em>My Servers</em> and press the VPS&rsquo;s <em>Manage</em> link. In the page <em>Server Information</em> you can press the <em>View Console</em> button to open the console window.</p>
+
+<p>Now, you can install the FreeBSD in the console. There are some key steps:</p>
+
+<ul>
+<li>make disk partition manually. eg. /boot=64K, /=4G, zfs=14G, swap=2G .</li>
+<li>don&rsquo;t set mount point for zfs and give it a label, eg. tank.</li>
+<li>minimal installation, docs/sources/ports/etc. are excluded.</li>
+<li>use DHCP to config the networking</li>
+</ul>
+
+<p>After done, shutdown this VPS. Open the <em>Custom ISO</em> tab in the page <em>Server Information</em> , detach the ISO file and restart this VPS.</p>
+
+<p>Now, you can log into the system via console or SSH and use it.</p>
+
+<h3 id="zfs">ZFS</h3>
+
+<p>You must create a zpool in zfs partition at first:</p>
+
+<pre><code>zpool create ztank /dev/gpt/tank
+</code></pre>
+
+<p><em>ztank</em> is the zpool name, <em>tank</em> is the partition label name.</p>
+
+<p>and create zfs like this:</p>
+
+<pre><code>zfs create -o mountpoint=/home/myusername/myhome ztank/myhome
+</code></pre>
+
+<p>or create a zfs for ports:</p>
+
+<pre><code>mv /usr/ports /usr/ports_old
+zfs create -o mountpoint=/usr/ports -o compression=on ztank/ports
+mv /usr/ports_old/* /usr/ports
+rmdir /usr/ports_old
+</code></pre>
+
+<p>Enjoy it.</p>
+
+</article>
+
+
+
+</div>
+</div>
+<script src="http://raptorz.github.io//js/theme.min.js" type="text/javascript"></script>
+
+
+</body>
+</html>
+
